@@ -1,13 +1,26 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import 'dotenv/config';
 
+function required(key: string): string {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Environment variable ${key} is required`);
+  }
+  return value;
+}
+
+const port = Number.parseInt(required('DB_PORT'), 10);
+if (!Number.isFinite(port)) {
+  throw new Error('DB_PORT must be a valid number');
+}
+
 const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT!),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: required('DB_HOST'),
+  port: port,
+  username: required('DB_USERNAME'),
+  password: required('DB_PASSWORD'),
+  database: required('DB_NAME'),
   entities: [],
   migrations: ['dist/db/migrations/*.js'],
 };
