@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '@modules/users/entities/users.entity';
+import { AuthModule } from '@modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -25,10 +27,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           username: configService.getOrThrow<string>('DB_USERNAME'),
           password: configService.getOrThrow<string>('DB_PASSWORD'),
           database: configService.getOrThrow<string>('DB_NAME'),
-          entities: [],
+          entities: [User],
         };
       },
     }),
+
+    AuthModule,
   ],
   controllers: [],
   providers: [],
