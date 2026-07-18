@@ -1,5 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import 'dotenv/config';
+import { User } from '@modules/users/entities/users.entity';
 
 function required(key: string): string {
   const value = process.env[key];
@@ -21,7 +22,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: required('DB_USERNAME'),
   password: required('DB_PASSWORD'),
   database: required('DB_NAME'),
-  entities: [],
+  entities: [User],
   migrations: ['dist/db/migrations/*.js'],
 };
 
