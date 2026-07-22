@@ -38,7 +38,6 @@ export class WorkspacesController {
 
   @Get()
   async getWorkspaces(@Req() req: AuthenticatedRequest) {
-    console.warn('req.user.userId', req.user.userId);
     return this.workspacesService.getWorkspacesByUserId(req.user.userId);
   }
 
