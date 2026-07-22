@@ -22,6 +22,9 @@ export class Workspace {
   @Column()
   description: string;
 
+  @Column()
+  workspaceColor: string;
+
   /**
    * One-to-Many: one User (owner) can own many Workspaces.
    * This is the "many" side — each workspace has exactly one owner.
