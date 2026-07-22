@@ -22,7 +22,7 @@ export class User {
   @Column()
   password: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createdAt: Date;
 
   /**
