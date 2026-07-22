@@ -4,7 +4,8 @@
     "moduleResolution": "nodenext",
     "paths": {
       "@modules/*": ["./src/modules/*"],
-      "@db/*": ["./src/db/*"]
+      "@db/*": ["./src/db/*"],
+      "@common/*": ["./src/common/*"]
     },
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
