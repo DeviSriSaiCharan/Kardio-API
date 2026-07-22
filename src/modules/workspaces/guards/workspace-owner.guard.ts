@@ -9,6 +9,7 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { IS_WORKSPACE_OWNER_KEY } from '../decorators/workspace-owner.decorator';
 import { WorkspacesService } from '../workspaces.service';
+import { AuthenticatedRequest } from '@common/types/authenticated-request.type';
 
 @Injectable()
 export class WorkspaceOwnerGuard implements CanActivate {
@@ -27,10 +28,10 @@ export class WorkspaceOwnerGuard implements CanActivate {
     // If the decorator is absent, the guard is a no-op — let it pass
     if (!isOwnerOnly) return true;
 
-    const request = context.switchToHttp().getRequest<Request>();
+    const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
 
     // 2. Pull the authenticated user set by JwtAuthGuard (runs before this)
-    const currentUserId = request.user?.id;
+    const currentUserId = request.user.userId;
 
     // 3. Pull :workspaceId from the route params
     const workspaceId = request.params['workspaceId'] as string;
