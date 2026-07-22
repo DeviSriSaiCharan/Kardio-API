@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '@modules/users/entities/users.entity';
+import { Workspace } from '@modules/workspaces/entities/workspace.entity';
 import { AuthModule } from '@modules/auth/auth.module';
+import { WorkspacesModule } from './modules/workspaces/workspaces.module';
 
 @Module({
   imports: [
@@ -27,12 +29,14 @@ import { AuthModule } from '@modules/auth/auth.module';
           username: configService.getOrThrow<string>('DB_USERNAME'),
           password: configService.getOrThrow<string>('DB_PASSWORD'),
           database: configService.getOrThrow<string>('DB_NAME'),
-          entities: [User],
+          entities: [User, Workspace],
         };
       },
     }),
 
     AuthModule,
+
+    WorkspacesModule,
   ],
   controllers: [],
   providers: [],
